@@ -29,7 +29,7 @@ RESPONSE 200 OK
 */
 $app->get('/guests/', function() use ( $app ) {
     $guests = GuestService::listGuest();
-    $app->response()->header('Content-Type', 'application/json');
+    $app->response()->header('Content-Type', 'application/json'); //Resposta formatada para o tipo JSON
     echo json_encode($guests);
 });
 
@@ -57,6 +57,7 @@ $app->post('/guests/', function() use ( $app ) {
         
         //RESPONSE 200 OK
         $guestResult = array('name'=>'this a teste','email'=>'tset@gmail.com','id'=>'1');
+        $app->response()->header('Content-Type', 'application/json'); //Resposta formatada para o tipo JSON
         echo json_encode($guestResult);
     }
     else {
@@ -84,7 +85,8 @@ $app->delete('/guests/:id', function($id) use ( $app ) {
     
     //RESPONSE 200 OK:
     if(GuestService::delete($id)) {
-      $guestResult = array('Status'=>'true','messagem'=>'Guest deleted');    
+      $guestResult = array('Status'=>'true','messagem'=>'Guest deleted');   
+      $app->response()->header('Content-Type', 'application/json'); //Resposta formatada para o tipo JSON
       echo json_encode($guestResult);
     }
     
@@ -92,7 +94,8 @@ $app->delete('/guests/:id', function($id) use ( $app ) {
     else {
       $app->response->setStatus('404');
       
-      $guestResult = array('Status'=>'false','messagem'=>'Guest with ' . $id . 'does not exit');   
+      $guestResult = array('Status'=>'false','messagem'=>'Guest with ' . $id . ' does not exit');   
+      $app->response()->header('Content-Type', 'application/json'); //Resposta formatada para o tipo JSON
       echo json_encode($guestResult);
     }
 });
